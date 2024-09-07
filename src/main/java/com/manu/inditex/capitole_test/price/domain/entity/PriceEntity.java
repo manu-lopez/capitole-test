@@ -2,7 +2,6 @@ package com.manu.inditex.capitole_test.price.domain.entity;
 
 import com.manu.inditex.capitole_test.brand.domain.entity.Brand;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name="PRICES")
 @Getter
 @Setter
-public class Price {
+public class PriceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
