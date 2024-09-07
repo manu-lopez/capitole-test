@@ -1,6 +1,6 @@
 package com.manu.inditex.capitole_test.price.domain.entity;
 
-import com.manu.inditex.capitole_test.brand.domain.entity.Brand;
+import com.manu.inditex.capitole_test.brand.domain.entity.BrandEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ public class PriceEntity {
 
     @ManyToOne
     @JoinColumn(name = "BRAND_ID", nullable = false)
-    private Brand brandId;
+    private BrandEntity brandEntity;
 
     @Column(name = "START_DATE", nullable = false)
     private LocalDateTime startDate;

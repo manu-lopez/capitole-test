@@ -1,6 +1,6 @@
 package com.manu.inditex.capitole_test.price.domain.dto;
 
-import com.manu.inditex.capitole_test.brand.domain.entity.Brand;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,20 +14,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PriceDTO {
-    private Long priceId;
 
-    private Brand brandId;
-
-    private LocalDateTime startDate;
-
-    private LocalDateTime endDate;
-
-    private Integer priceList;
-
+    @JsonProperty("product_id")
     private Long productId;
 
-    private Integer priority;
+    @JsonProperty("brand_id")
+    private Long brandId;
 
+    @JsonProperty("price_list")
+    private Integer priceList;
+
+    @JsonProperty("price_start_date")
+    private LocalDateTime startDate;
+
+    @JsonProperty("price_end_date")
+    private LocalDateTime endDate;
+
+    @JsonProperty("product_price")
     private BigDecimal price;
 
     private String currency;
