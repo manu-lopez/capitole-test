@@ -21,8 +21,16 @@ public class PriceController {
     @GetMapping("/price")
     public ResponseEntity<PriceDTO> getPrice(@RequestParam("priceDate") @DateTimeFormat(pattern = "yyyy-MM-dd-HH.mm.ss") LocalDateTime priceDate,
                                              @RequestParam("productId") Long productId,
-                                             @RequestParam("brandId") Long brandId){
+                                             @RequestParam("brandId") Integer brandId){
         PriceDTO priceResponse = priceService.getPriceFromParams(priceDate, productId, brandId);
+        return new ResponseEntity<>(priceResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/price-streams")
+    public ResponseEntity<PriceDTO> getPriceStreams(@RequestParam("priceDate") @DateTimeFormat(pattern = "yyyy-MM-dd-HH.mm.ss") LocalDateTime priceDate,
+                                             @RequestParam("productId") Long productId,
+                                             @RequestParam("brandId") Integer brandId){
+        PriceDTO priceResponse = priceService.getPriceFromParamsStreams(priceDate, productId, brandId);
         return new ResponseEntity<>(priceResponse, HttpStatus.OK);
     }
 

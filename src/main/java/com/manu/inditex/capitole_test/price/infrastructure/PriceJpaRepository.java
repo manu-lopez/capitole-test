@@ -18,5 +18,5 @@ public interface PriceJpaRepository extends JpaRepository <PriceEntity, Long> {
             "ORDER BY p.priority DESC, p.startDate ASC")
     Optional<List<PriceEntity>> getPriceByParams(@Param("priceDate") LocalDateTime priceDate,
                                                    @Param("productId") Long productId,
-                                                   @Param("brandId") Long brandId);
+                                                   @Param("brandId") Integer brandId);
 }

@@ -19,13 +19,25 @@ public class PriceRepository {
     private final PriceMapper priceMapper;
     private final PriceJpaRepository priceJpaRepository;
 
-    public List<PriceDO> getByParams(LocalDateTime priceDate, Long productId, Long brandId) {
+    public List<PriceDO> getByParams(LocalDateTime priceDate, Long productId, Integer brandId) {
         final List<PriceEntity> entityList;
 
         try {
             entityList = priceJpaRepository.getPriceByParams(priceDate, productId, brandId).orElseThrow();
         } catch (NoSuchElementException e){
             throw new PriceNotFoundException(String.format("Price not found for product ID %s", productId));
+        }catch (Exception e) {
+            throw new RuntimeException("Error while trying to get the price");
+        }
+
+        return priceMapper.priceEntityListToPriceDOList(entityList);
+    }
+
+    public List<PriceDO> getAllPrices() {
+        final List<PriceEntity> entityList;
+
+        try {
+            entityList = priceJpaRepository.findAll();
         }catch (Exception e) {
             throw new RuntimeException("Error while trying to get the price");
         }
