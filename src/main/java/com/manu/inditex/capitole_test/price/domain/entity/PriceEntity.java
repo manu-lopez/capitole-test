@@ -1,8 +1,7 @@
 package com.manu.inditex.capitole_test.price.domain.entity;
 
-import com.manu.inditex.capitole_test.brand.domain.entity.Brand;
+import com.manu.inditex.capitole_test.brand.domain.entity.BrandEntity;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name="PRICES")
 @Getter
 @Setter
-public class Price {
+public class PriceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +21,7 @@ public class Price {
 
     @ManyToOne
     @JoinColumn(name = "BRAND_ID", nullable = false)
-    private Brand brandId;
+    private BrandEntity brand;
 
     @Column(name = "START_DATE", nullable = false)
     private LocalDateTime startDate;
