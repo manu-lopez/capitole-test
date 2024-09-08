@@ -1,6 +1,6 @@
 package com.manu.inditex.capitole_test.price.domain;
 
-import com.manu.inditex.capitole_test.brand.domain.entity.BrandEntity;
+import com.manu.inditex.capitole_test.brand.domain.entity.BrandDO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class PriceDO {
     private Long priceId;
 
-    private BrandEntity brandEntity;
+    private BrandDO brand;
 
     private LocalDateTime startDate;
 

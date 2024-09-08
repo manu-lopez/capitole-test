@@ -1,15 +1,13 @@
 package com.manu.inditex.capitole_test.price.infrastructure;
 
+import com.manu.inditex.capitole_test.price.domain.exception.PriceNotFoundException;
 import com.manu.inditex.capitole_test.price.application.PriceService;
 import com.manu.inditex.capitole_test.price.domain.dto.PriceDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -26,5 +24,15 @@ public class PriceController {
                                              @RequestParam("brandId") Long brandId){
         PriceDTO priceResponse = priceService.getPriceFromParams(priceDate, productId, brandId);
         return new ResponseEntity<>(priceResponse, HttpStatus.OK);
+    }
+
+    // ----------------
+    // ERROR HANDLERS
+    // ----------------
+
+    @ExceptionHandler(PriceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> priceNotFoundHandler(PriceNotFoundException ex){
+        ErrorResponse error = new ErrorResponse(ex.getClass().getSimpleName(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }

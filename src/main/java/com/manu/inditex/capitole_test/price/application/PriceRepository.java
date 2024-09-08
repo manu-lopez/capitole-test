@@ -3,11 +3,14 @@ package com.manu.inditex.capitole_test.price.application;
 import com.manu.inditex.capitole_test.price.domain.PriceDO;
 import com.manu.inditex.capitole_test.price.domain.PriceMapper;
 import com.manu.inditex.capitole_test.price.domain.entity.PriceEntity;
+import com.manu.inditex.capitole_test.price.domain.exception.PriceNotFoundException;
 import com.manu.inditex.capitole_test.price.infrastructure.PriceJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Component
 @AllArgsConstructor
@@ -16,13 +19,17 @@ public class PriceRepository {
     private final PriceMapper priceMapper;
     private final PriceJpaRepository priceJpaRepository;
 
-    public PriceDO getById(Long id){
-        PriceEntity entity = new PriceEntity();
+    public List<PriceDO> getByParams(LocalDateTime priceDate, Long productId, Long brandId) {
+        final List<PriceEntity> entityList;
+
         try {
-            entity = priceJpaRepository.findById(id).orElseThrow();
-        } catch (Exception e) {
-            // Exception
+            entityList = priceJpaRepository.getPriceByParams(priceDate, productId, brandId).orElseThrow();
+        } catch (NoSuchElementException e){
+            throw new PriceNotFoundException(String.format("Price not found for product ID %s", productId));
+        }catch (Exception e) {
+            throw new RuntimeException("Error while trying to get the price");
         }
-        return priceMapper.priceEntityToPriceDO(entity);
+
+        return priceMapper.priceEntityListToPriceDOList(entityList);
     }
 }
